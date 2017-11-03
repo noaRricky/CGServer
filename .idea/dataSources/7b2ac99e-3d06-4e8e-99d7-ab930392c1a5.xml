@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="zsh@localhost">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.4">
+    <root id="1"/>
+    <schema id="2" parent="1" name="zsh">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="3" parent="1" name="information_schema"/>
+    <schema id="4" parent="1" name="mysql"/>
+    <schema id="5" parent="1" name="performance_schema"/>
+    <schema id="6" parent="1" name="sys"/>
+    <table id="7" parent="2" name="card"/>
+    <table id="8" parent="2" name="history"/>
+    <table id="9" parent="2" name="user"/>
+    <column id="10" parent="7" name="CardNo">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="11" parent="7" name="CardName">
+      <Position>2</Position>
+      <DataType>varchar(15)|0</DataType>
+    </column>
+    <column id="12" parent="7" name="PhotoPath">
+      <Position>3</Position>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <column id="13" parent="7" name="CardHp">
+      <Position>4</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="14" parent="7" name="CardAttack">
+      <Position>5</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="15" parent="7" name="CardType">
+      <Position>6</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <index id="16" parent="7" name="CardName">
+      <ColNames>CardName</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="17" parent="7" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>CardNo</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="18" parent="7" name="CardName">
+      <ColNames>CardName</ColNames>
+      <UnderlyingIndexName>CardName</UnderlyingIndexName>
+    </key>
+    <column id="19" parent="8" name="HistoryNum">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="20" parent="8" name="PlayerA">
+      <Position>2</Position>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <column id="21" parent="8" name="PlayerB">
+      <Position>3</Position>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <column id="22" parent="8" name="Winner">
+      <Position>4</Position>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <column id="23" parent="8" name="Time">
+      <Position>5</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <key id="24" parent="8" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>HistoryNum</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="25" parent="9" name="UserID">
+      <Position>1</Position>
+      <DataType>varchar(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="26" parent="9" name="UserName">
+      <Position>2</Position>
+      <DataType>varchar(15)|0</DataType>
+    </column>
+    <column id="27" parent="9" name="Password">
+      <Position>3</Position>
+      <DataType>varchar(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="28" parent="9" name="Type">
+      <Position>4</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="29" parent="9" name="Question">
+      <Position>5</Position>
+      <DataType>varchar(30)|0</DataType>
+    </column>
+    <column id="30" parent="9" name="Answer">
+      <Position>6</Position>
+      <DataType>varchar(30)|0</DataType>
+    </column>
+    <column id="31" parent="9" name="RegTime">
+      <Position>7</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <key id="32" parent="9" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>UserID</ColNames>
+      <Primary>1</Primary>
+    </key>
+  </database-model>
+</dataSource>
