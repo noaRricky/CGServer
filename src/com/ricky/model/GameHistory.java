@@ -8,6 +8,8 @@ public class GameHistory {
     private String playerB;  //玩家B
     private String winner;  //赢家
     private Date date;      //对战时间
+    //private String date ; //日期
+   // private String time ; //时间
 
     public GameHistory(){};
 
