@@ -115,6 +115,25 @@ public class GHService {
     }
 
     /**
+     * 更新历史信息
+     * @param history 历史信息
+     * @return 修改成功返回true,否则返回false
+     */
+    public boolean updateHistory(GameHistory history) {
+        helper = new SQLHelper();
+        boolean flag;
+
+        String sql = "UPDATE history SET PlayerA = ?, PlayerB = ?, Winner = ?, Time = ? WHERE HistoryNum = ?";
+        Object parameter[] = {history.getPlayerA(), history.getPlayerB(), history.getWinner(), history.getDateTime(),
+                                history.getNumber()};
+
+        flag = helper.execute(sql, parameter);
+        helper = null;
+
+        return flag;
+    }
+
+    /**
      * 根据玩家用户名，获取胜利次数
      * @param player 玩家用户名
      * @return 查询成功返回对应数字，否则返回-1

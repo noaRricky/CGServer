@@ -2,6 +2,7 @@ package com.ricky.servlet;
 
 import com.org.json.JSONObject;
 import com.ricky.service.GHService;
+import com.ricky.util.ModelUri;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -13,7 +14,7 @@ public class DeleteHistoryServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String str = req.getParameter("historyNum");
+        String str = req.getParameter(ModelUri.HISTORY_NUM);
         int historyNum = Integer.parseInt(str);
 
         GHService service = new GHService();

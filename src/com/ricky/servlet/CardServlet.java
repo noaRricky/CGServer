@@ -19,6 +19,8 @@ public class CardServlet extends HttpServlet{
         CardService service = new CardService();
         JSONArray jsonArray = service.getAllCard();
 
+        resp.setCharacterEncoding("utf-8");
+        resp.setContentType("text/html");
         resp.getWriter().println(jsonArray.toString());
     }
 }
