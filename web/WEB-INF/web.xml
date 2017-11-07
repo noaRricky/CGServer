@@ -102,4 +102,40 @@
         <servlet-name>AddCardServlet</servlet-name>
         <url-pattern>/add_card</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>UpdateHistoryServlet</servlet-name>
+        <servlet-class>com.ricky.servlet.UpdateHistoryServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdateHistoryServlet</servlet-name>
+        <url-pattern>/update_history</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>UpdateCardServlet</servlet-name>
+        <servlet-class>com.ricky.servlet.UpdateCardServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdateCardServlet</servlet-name>
+        <url-pattern>/update_card_info</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>DeleteCardServlet</servlet-name>
+        <servlet-class>com.ricky.servlet.DeleteCardServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteCardServlet</servlet-name>
+        <url-pattern>/delete_card</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>UpdateImageServlet</servlet-name>
+        <servlet-class>com.ricky.servlet.UpdateImageServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdateImageServlet</servlet-name>
+        <url-pattern>/update_card_pic</url-pattern>
+    </servlet-mapping>
 </web-app>

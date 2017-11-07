@@ -3,6 +3,7 @@ package com.ricky.service;
 import com.org.json.JSONArray;
 import com.org.json.JSONObject;
 import com.ricky.model.Card;
+import com.ricky.util.ModelUri;
 import com.ricky.util.SQLHelper;
 
 import java.sql.ResultSet;
@@ -34,9 +35,9 @@ public class CardService {
                 {
                     card = new Card();
 
-                    card.setCardNo(rs.getInt(1));
+                    card.setCardID(rs.getInt(1));
                     card.setCardName(rs.getNString(2));
-                    card.setPhotoPath(rs.getString(3));
+                    card.setCardPhotoName(rs.getString(3));
                     card.setCardHP(rs.getInt(4));
                     card.setCardAttack(rs.getInt(5));
                     card.setCardType(rs.getInt(6));
@@ -70,7 +71,7 @@ public class CardService {
         String sql = "INSERT INTO card(CardName, CardPhotoName, CardHP, CardAttack, CardType)" +
                 " VALUES (?, ?, ?, ?, ?) ";
         Object parameter[] = {newCard.getCardName(),
-                            newCard.getPhotoPath(), newCard.getCardHP(),
+                            newCard.getCardPhotoName(), newCard.getCardHP(),
                             newCard.getCardAttack(), newCard.getCardType()};
 
         flag = helper.execute(sql, parameter);
@@ -108,12 +109,11 @@ public class CardService {
         helper = new SQLHelper();
 
         boolean flag;
-        String sql = "UPDATE card SET CardID=?, CardPhotoName=?, " +
-                "CardAttack=?, CardHP=?, CardType=?\n" +
-                "WHERE CardID=?";
-        Object parameter[] = {card.getCardName(), card.getPhotoPath(),
-                            card.getCardAttack(), card.getCardHP(),
-                            card.getCardType(), card.getCardNo()};
+        String sql = "UPDATE card SET CardName = ?, CardPhotoName = ?, " +
+                "CardHP = ?, CardAttack = ?, CardType = ? WHERE CardID = ?";
+        Object parameter[] = {card.getCardName(), card.getCardPhotoName(),
+                            card.getCardHP(), card.getCardAttack(),
+                            card.getCardType(), card.getCardID()};
 
         flag = helper.execute(sql, parameter);
         helper = null;
@@ -134,12 +134,12 @@ public class CardService {
                 jsonArray = new JSONArray();
                 while (rs.next()) {
                     JSONObject jsonObject = new JSONObject();
-                    jsonObject.put("CardID", rs.getInt(1));
-                    jsonObject.put("CardName", rs.getNString(2));
-                    jsonObject.put("CardPhotoName", rs.getString(3));
-                    jsonObject.put("CardHP", rs.getInt(4));
-                    jsonObject.put("CardAttack", rs.getInt(5));
-                    jsonObject.put("CardType", rs.getInt(6));
+                    jsonObject.put(ModelUri.CARD_ID, rs.getInt(1));
+                    jsonObject.put(ModelUri.CARD_NAME, rs.getNString(2));
+                    jsonObject.put(ModelUri.CARD_PIC_NAME, rs.getString(3));
+                    jsonObject.put(ModelUri.CARD_HP, rs.getInt(4));
+                    jsonObject.put(ModelUri.CARD_ATTACK, rs.getInt(5));
+                    jsonObject.put(ModelUri.CARD_TYPE, rs.getInt(6));
 
                     jsonArray.put(jsonObject);
                 }

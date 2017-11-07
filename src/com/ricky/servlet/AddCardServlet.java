@@ -4,6 +4,7 @@ import com.org.json.JSONObject;
 import com.ricky.model.Card;
 import com.ricky.service.CardService;
 import com.ricky.util.ImageHelper;
+import com.ricky.util.ModelUri;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,18 +19,16 @@ public class AddCardServlet extends HttpServlet {
 
         req.setCharacterEncoding("utf-8");
 
-        String cardName = req.getParameter("cardName");
-        String cardHP = req.getParameter("cardHP");
-        String cardAttack = req.getParameter("cardAttack");
-        String photoPath = req.getParameter("photoPath");
-        String type = req.getParameter("cardType");
+        String cardName = req.getParameter(ModelUri.CARD_NAME);
+        String cardHP = req.getParameter(ModelUri.CARD_HP);
+        String cardAttack = req.getParameter(ModelUri.CARD_ATTACK);
+        String photoName = req.getParameter(ModelUri.CARD_PIC_NAME);
+        String type = req.getParameter(ModelUri.CARD_TYPE);
 
-        Card card = new Card();
-        card.setCardName(cardName);
-        card.setPhotoPath(ImageHelper.IMAGE_BASE_PATH + photoPath);
-        card.setCardHP(Integer.parseInt(cardHP));
-        card.setCardAttack(Integer.parseInt(cardAttack));
-        card.setCardType(Integer.parseInt(type));
+        Card card = new Card(0, cardName, photoName,
+                Integer.parseInt(cardHP),
+                Integer.parseInt(cardAttack),
+                Integer.parseInt(type));
 
         CardService service = new CardService();
         boolean result = service.addCard(card);

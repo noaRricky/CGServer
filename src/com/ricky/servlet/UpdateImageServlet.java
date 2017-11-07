@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.util.List;
 
-public class AddImage extends HttpServlet {
+public class UpdateImageServlet extends HttpServlet {
 
     private static final String IMAGE_BASE_PATH = "D:\\Project\\apache-tomcat-9.0.0.M26\\webapps\\image\\";
 
