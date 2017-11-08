@@ -100,7 +100,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>AddCardServlet</servlet-name>
-        <url-pattern>/add_card</url-pattern>
+        <url-pattern>/new_card_info</url-pattern>
     </servlet-mapping>
     
     <servlet>

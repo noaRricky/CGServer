@@ -16,6 +16,8 @@ public class AddHistoryServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        req.setCharacterEncoding("utf-8");
+
         String playerA = req.getParameter(ModelUri.PLAYER_A);
         String playerB = req.getParameter(ModelUri.PLAYER_B);
         String winner = req.getParameter(ModelUri.WINNER);

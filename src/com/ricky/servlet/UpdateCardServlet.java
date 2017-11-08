@@ -4,6 +4,7 @@ import com.org.json.JSONObject;
 import com.ricky.model.Card;
 import com.ricky.service.CardService;
 import com.ricky.util.ModelUri;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,13 +17,21 @@ public class UpdateCardServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        req.setCharacterEncoding("utf-8");
+
+        String cardID = req.getParameter(ModelUri.CARD_ID);
+        String cardName = req.getParameter(ModelUri.CARD_NAME);
+        String cardPhotoName = req.getParameter(ModelUri.CARD_PIC_NAME);
+        String cardAttack = req.getParameter(ModelUri.CARD_ATTACK);
+        String cardHP = req.getParameter(ModelUri.CARD_HP);
+        String cardType = req.getParameter(ModelUri.CARD_TYPE);
+
         Card card = new Card(
-                Integer.parseInt(req.getParameter(ModelUri.CARD_ID)),
-                req.getParameter(ModelUri.CARD_NAME),
-                req.getParameter(ModelUri.CARD_PIC_NAME),
-                Integer.parseInt(req.getParameter(ModelUri.CARD_HP)),
-                Integer.parseInt(req.getParameter(ModelUri.CARD_ATTACK)),
-                Integer.parseInt(req.getParameter(ModelUri.CARD_TYPE))
+                Integer.parseInt(cardID),
+                cardName, cardPhotoName,
+                Integer.parseInt(cardHP),
+                Integer.parseInt(cardAttack),
+                Integer.parseInt(cardType)
         );
 
         CardService service = new CardService();

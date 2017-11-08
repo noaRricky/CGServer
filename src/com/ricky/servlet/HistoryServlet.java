@@ -19,6 +19,9 @@ public class HistoryServlet extends HttpServlet {
         GHService service = new GHService();
         JSONArray histories = service.getAllHistory();
 
+        resp.setContentType("text/html");
+        resp.setCharacterEncoding("utf-8");
+
         if (histories != null) {
             resp.getWriter().println(histories.toString());
         }

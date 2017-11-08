@@ -15,6 +15,9 @@ public class UpdateHistoryServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        req.setCharacterEncoding("utf-8");
+
         GameHistory history = new GameHistory(
                 Integer.parseInt(req.getParameter(ModelUri.HISTORY_NUM)),
                 req.getParameter(ModelUri.PLAYER_A),
