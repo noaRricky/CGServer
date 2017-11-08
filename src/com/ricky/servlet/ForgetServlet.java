@@ -15,6 +15,8 @@ public class ForgetServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("utf-8");
+
         String userID = req.getParameter("userID");
 
         UserService service = new UserService();
@@ -29,6 +31,7 @@ public class ForgetServlet extends HttpServlet {
                 //把验证信息你封装成JSONObject对象
 
                 JSONObject jsonObj = new JSONObject();
+                jsonObj.put("result", "true");
                 jsonObj.put("userID", userID);
                 jsonObj.put("question", question);
                 jsonObj.put("answer", answer);
@@ -37,6 +40,13 @@ public class ForgetServlet extends HttpServlet {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+        } else {
+            resp.setContentType("text/html");
+            resp.setCharacterEncoding("utf-8");
+
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("result", "false");
+            resp.getWriter().println(jsonObject.toString());
         }
     }
 }
