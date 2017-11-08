@@ -14,4 +14,10 @@ public class ModelUri {
     public static final String CARD_HP = "CardHP";
     public static final String CARD_ATTACK = "CardAttack";
     public static final String CARD_TYPE = "CardType";
+    public static final String QUESTION = "question";
+    public static final String ANSWER = "answer";
+    public static final String USER_ID = "userID";
+    public static final String USER_NAME = "userName";
+    public static final String PASSWORD = "password";
+    public static final String userType = "type";
 }

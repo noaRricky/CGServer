@@ -3,7 +3,10 @@ package com.ricky.servlet;
 import com.org.json.JSONObject;
 import com.ricky.model.User;
 import com.ricky.service.UserService;
+import com.ricky.util.ModelUri;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 
+import javax.jws.WebParam;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,16 +20,16 @@ public class UpdateUserServlet extends HttpServlet {
 
         req.setCharacterEncoding("utf-8");
 
-        String userID = req.getParameter("userID");
-        String username = req.getParameter("username");
-        String password = req.getParameter("password");
-        String question = req.getParameter("question");
-        String answer = req.getParameter("answer");
+        String userID = req.getParameter(ModelUri.USER_ID);
+        String username = req.getParameter(ModelUri.USER_NAME);
+        String password = req.getParameter(ModelUri.PASSWORD);
+        String question = req.getParameter(ModelUri.QUESTION);
+        String answer = req.getParameter(ModelUri.ANSWER);
 
         UserService service = new UserService();
         boolean result = service.updatePlayer(userID, username, password, question, answer);
         JSONObject jsonObj = new JSONObject();
-        jsonObj.put("result", result);
+        jsonObj.put(ModelUri.RESULT, result);
 
         resp.setContentType("text/html");
         resp.setCharacterEncoding("utf-8");
