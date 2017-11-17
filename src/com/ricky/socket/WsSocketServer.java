@@ -33,7 +33,14 @@ public class WsSocketServer {
 
     @OnClose
     public void onClose(Session session) {
+
         System.out.println("Close connection..");
+
+        for (String key : sendMap.keySet()) {
+            if (sendMap.get(key) == session) {
+                sendMap.remove(key);
+            }
+        }
     }
 
     @OnMessage
@@ -44,40 +51,40 @@ public class WsSocketServer {
         if (playMsg.getType() == Message.Type.START) {
             player = playMsg.getPlayer();
 
-            while (!flag) {
-                if (waitPlayer.equals("")) {
-                    synchronized (waitPlayer) {
-                        waitPlayer = player;
-                        waitSession = session;
-                        order = FIRST_ORDER;
-                    }
-                } else if (!waitPlayer.equals(player)){
-                    synchronized (waitPlayer) {
-                        sendMap.put(waitPlayer, session);
-                        sendMap.put(player, waitSession);
-                        order = SECOND_ORDER;
-                        waitSession = null;
-                        waitPlayer = "";
-                    }
-                    flag = true;
+            if (waitPlayer.equals("")) {
+                synchronized (waitPlayer) {
+                    waitPlayer = player;
+                    waitSession = session;
+                    order = FIRST_ORDER;
                 }
+            } else if (!waitPlayer.equals(player)) {
+                synchronized (waitPlayer) {
+                    sendMap.put(waitPlayer, session);
+                    sendMap.put(player, waitSession);
+                    order = SECOND_ORDER;
+                    waitSession = null;
+                    waitPlayer = "";
+                }
+
+            }
+
+            while (sendMap.get(player) == null) {
+                System.out.println("Wait for player......");
             }
 
             if (order == FIRST_ORDER) {
-                Message retMessage = new Message(Message.Type.GAME, player);
-                return retMessage.toJSON();
+                Message retMessage = new Message(Message.Type.SECOND, player, playMsg.getDeck());
+                Session battleSession = sendMap.get(player);
+                sendMessage(battleSession, retMessage.toJSON());
             } else if (order == SECOND_ORDER) {
-                Message retMessage = new Message(Message.Type.WAIT, player);
-                return retMessage.toJSON();
+                Message retMessage = new Message(Message.Type.FIRST, player, playMsg.getDeck());
+                Session battleSession = sendMap.get(player);
+                sendMessage(battleSession, retMessage.toJSON());
             }
             //已经在进行游戏
         } else {
             Session battleSession = sendMap.get(player);
-            try {
-                battleSession.getBasicRemote().sendText(message);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            sendMessage(battleSession, message);
             return null;
         }
 
@@ -87,5 +94,18 @@ public class WsSocketServer {
     @OnError
     public void onError(Throwable e) {
         e.printStackTrace();
+    }
+
+    /**
+     * 相对战者发送信息
+     * @param session 对站者Session
+     * @param message 信息
+     */
+    private void sendMessage(Session session, String message) {
+        try {
+            session.getBasicRemote().sendText(message);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
