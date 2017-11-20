@@ -1,18 +1,19 @@
 import com.ricky.model.Message;
+import com.ricky.model.Position;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class Test {
     public static void main(String[] args)
     {
-        List<Integer> deck = new ArrayList<>();
-        deck.add(1);
-        deck.add(2);
-        deck.add(3);
-        Message message = new Message(Message.Type.DECK, "Ricky", deck);
-        String str = message.toJSON();
-        Message next = new Message(str);
+        Position first = new Position(1, 2, 10, Position.Type.CARD);
+        Position second = new Position(1, 2, 11, Position.Type.CARD);
+
+        Message posMessage = new Message(Message.Type.PLAY, "ricky",first, second);
+
+        System.out.println(posMessage.toJSON());
+
+        Message next = new Message(posMessage.toJSON());
+
         System.out.println(next.toJSON());
     }
 }

@@ -41,10 +41,13 @@ public class WsSocketServer {
     @OnMessage
     public String onMessage(Session session, String message) {
 
+        System.out.println("Game Socket Server: receive message: " + message);
+
         Message playMsg = new Message(message);
         this.playSession = session;
         player = playMsg.getPlayer();
         String str = null;
+
 
         if (playMsg.getType() == Message.Type.START) {
             deck = playMsg.getDeck();
