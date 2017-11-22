@@ -17,8 +17,6 @@ import java.util.List;
 
 public class LoginServlet extends HttpServlet {
 
-    private static List<String> userList = new ArrayList<>();
-
     private UserService userService = null;
 
     private static final int ONLINE = 2;
@@ -52,20 +50,12 @@ public class LoginServlet extends HttpServlet {
 
         int userType = -1;
 
-        if (userList.contains(userID)) {
-            userType = ONLINE;
-        } else {
-            userService = new UserService();
-            User user = userService.login(userID, password);
+        userService = new UserService();
+        User user = userService.login(userID, password);
 
-            if (user != null)
-            {
-                userType = user.getType();
-                //此处添加session保存用户登录信息
-                synchronized (userList) {
-                    userList.add(userID);
-                }
-            }
+        if (user != null)
+        {
+            userType = user.getType();
         }
 
         resp.setContentType("text/html");
@@ -76,21 +66,6 @@ public class LoginServlet extends HttpServlet {
         jsonObj.put("userID", userID);
         jsonObj.put("userType", userType);
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-                try {
-                    Thread.sleep(10 * 60 * 1000);
-                    //线程等待10分钟后删除对应玩家数据
-                    synchronized (userList) {
-                        userList.remove(userID);
-                    }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
         //输出响应
         resp.getWriter().println(jsonObj.toString());
     }
