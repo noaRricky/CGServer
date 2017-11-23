@@ -6,6 +6,8 @@ import com.org.json.JSONException;
 import com.org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -89,6 +91,7 @@ public class Message {
                     JSONObject eachObject = deckArray.getJSONObject(i);
                     deck.add(eachObject.getInt(EACH_CARD));
                 }
+                Collections.sort(deck);
             }
         } catch (JSONException e) {
             e.printStackTrace();
