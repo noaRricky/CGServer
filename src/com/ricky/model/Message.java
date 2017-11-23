@@ -19,6 +19,7 @@ public class Message {
     private Type type;
     private String player;        //用户名字
     private Position prePos;      //第一次选择位置
+
     private Position nextPos;    //第二次选择位置
     private List<Integer> deck;    //用于游戏开始的时候传送卡组信息
 
@@ -173,7 +174,7 @@ public class Message {
     }
 
     public enum Type {
-        START, END, FIRST, TURN, SECOND, PLAY, WAIT
+        START, END, FIRST, TURN, SECOND, PLAY, WAIT, WIN
     }
 
 

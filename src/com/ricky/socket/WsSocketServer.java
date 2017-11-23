@@ -1,6 +1,8 @@
 package com.ricky.socket;
 
+import com.ricky.model.GameHistory;
 import com.ricky.model.Message;
+import com.ricky.service.GHService;
 
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
@@ -18,6 +20,7 @@ public class WsSocketServer {
     private static Session waitSession = null;
     private static boolean flag = false;
     private static Map<String, Session> sendMap = new HashMap<>();
+    private static Map<String, String> playerMap = new HashMap<>();
     private static List<Integer> waitDeck = null;
 
     private String player;
@@ -64,6 +67,8 @@ public class WsSocketServer {
                 synchronized (waitPlayer) {
                     sendMap.put(waitPlayer, session);
                     sendMap.put(player, waitSession);
+                    playerMap.put(waitPlayer, player);
+                    playerMap.put(player, waitPlayer);
                     match = waitPlayer;
                     battleDeck = waitDeck;
                     waitSession = null;
@@ -78,14 +83,33 @@ public class WsSocketServer {
                 Message second = new Message(Message.Type.SECOND, match, battleDeck);
                 str = second.toJSON();
             }
-            //表示战斗结束
-        } else if (playMsg.getType() == Message.Type.END) {
+            //发送END信息的人胜利,发送WIN信息的投降
+        } else if (playMsg.getType() == Message.Type.END || playMsg.getType() == Message.Type.WIN) {
+
+            String battlePlayer = playerMap.get(player);
+            String winner;
+            if (playMsg.getType() == Message.Type.END) {
+                winner = player;
+            } else {
+                winner = battlePlayer;
+            }
+
+            GHService service = new GHService();
+            boolean flag = service.addBattleHistory(player, battlePlayer, winner);
+            if (!flag) {
+                System.out.println("添加历史信息失败!");
+            }
 
             Session battleSession = sendMap.get(player);
-            if (battleSession != null) {
-                sendMessage(battleSession, message);
-            }
+
             sendMap.remove(player);
+            sendMap.remove(battlePlayer);
+            playerMap.remove(player);
+            playerMap.remove(battlePlayer);
+
+            sendMessage(battleSession, message);
+
+            //发送该信息的人投降
         }
         //表示已经开始战斗
         else {

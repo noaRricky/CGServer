@@ -73,6 +73,20 @@ public class GHService {
         return getTimes(sql, parameter);
     }
 
+    public boolean addBattleHistory(String playerA, String playerB, String winner) {
+
+        helper = new SQLHelper();
+        boolean flag;
+
+        String sql = "INSERT INTO history (PlayerA, PlayerB, Winner, Time) VALUES (?, ?, ?, now());";
+        Object parameter[] = {playerA, playerB, winner};
+
+        flag = helper.execute(sql, parameter);
+        helper = null;
+
+        return flag;
+    }
+
     /**
      * 添加历史信息
      * @param playerA 玩家A
